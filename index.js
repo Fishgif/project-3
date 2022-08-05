@@ -34,7 +34,8 @@ app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 
 
+const PORT = process.env.PORT || 8800;
 
-app.listen(8800, ()=>{
+app.listen(prompt, ()=>{
     console.log("Server is running")
 })
