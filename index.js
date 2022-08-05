@@ -22,7 +22,11 @@ mongoose.connect(
 
 //   Middleware
 app.use(express.json());
-app.use(helmet());
+app.use(helmet({
+  crossOriginEmbeddedPolicy: false
+}));
+
+
 app.use(morgan("common"));
 
 app.use("/api/users", userRoute);
