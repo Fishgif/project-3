@@ -63,6 +63,30 @@ router.get("/", async (req, res) => {
       res.status(500).json(err);
     }
   });
+
+
+// Get friends List
+
+router.get("/friends/:userId", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    const friends = await Promise.all(
+      user.followings.map((friendId) => {
+        return User.findById(friendId);
+      })
+    ); 
+    // friend properties to collect
+    let friendList = [];
+    friends.map((friend) => {
+      const { _id, username, profilePicture } = friend;
+      friendList.push({ _id, username, profilePicture });
+    });
+    res.status(200).json(friendList)
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Follow a user 
 
 
